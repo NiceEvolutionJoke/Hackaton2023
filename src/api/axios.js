@@ -1,6 +1,7 @@
 import axios from "axios";
+import store from "../store/store";
 
-export const API_URL = 'http://localhost:8000/api';
+export const API_URL = 'https://mdecor-server.ru/api';
 
 axios.defaults.withCredentials = true;
 
@@ -27,6 +28,8 @@ api.interceptors.response.use((config) => {
         } catch (err) {
             console.error('Не авторизован');
         }
+    } else {
+        store.setError(error.response);
     }
     throw error;
 })

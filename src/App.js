@@ -1,59 +1,43 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect } from "react";
+import { Routes, Route } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import { Context } from './index';
-import UserService from "./services/userService";
+import { useStore } from "./store/store";
 
-import Login from "./components/Login";
+import './App.scss';
+
+import Layout from "./components/Layout";
+import RequireAuth from './components/RequireAuth';
+import Loading from './components/loading/Loading';
+
+import Login from "./components/main/login/Login";
+
 
 function App() {
 
-    const {store} = useContext(Context);
-    const [users, setUsers] = useState([]);
+    const {store} = useStore();
+    
     useEffect(() => {
         if (localStorage.getItem('accessToken')) {
-            store.chechAuth()
+            store.chechAuth();
         }
     }, []);
 
-    async function getUsers() {
-        try {
-            const response = await UserService.getUsers();
-            console.log(response);
-            setUsers(response.data.users);
-        } catch(err) {
-            console.error(err);
-        }
-    }
-
-    if (store.isLoading) {
-        return (
-            <div>Загрузка...</div>
-        )
-    }
-
-    if (!store.isAuth) {
-        return (
-            <>
-            <Login />
-            <div>
-                <button onClick={getUsers}>Получить пользователей</button>
-            </div>
-            </>
-            
-        )
-    }
-
     return (
-        <>
-        <h1>{store.isAuth ? 'Авторизован' : 'НЕТ'}</h1>
-        <button onClick={() => store.Logout()}>Выйти</button>
-        <div>
-            <button onClick={getUsers}>Получить пользователей</button>
+        <div className="wrapper">
+            { store.isLoading
+            ? <Loading />
+            : <Routes>
+                <Route to="/" element={<Layout />}>
+                    {/* public routes */}
+                    <Route path="login" element={<Login />} />
+
+                    {/* protected routes */}
+                    <Route element={<RequireAuth />}>
+                        <Route index element={<></>} />
+                    </Route>
+                </Route>
+            </Routes> }
         </div>
-        {users.map(user => 
-            <div key={user.id}>{user.username}</div>
-        )}
-        </>
         
     )
 }
