@@ -1,0 +1,93 @@
+.post {
+    display: flex;
+    border-radius: 20px;
+    overflow: hidden;
+    min-height: 300px;
+}
+.postImg {
+    flex: 0 1 50%;
+    background-color: #fff;
+    position: relative;
+    height: 100%;
+    & img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        object-fit: cover;
+    }
+}
+.postBody {
+    flex: 0 1 50%;
+    padding: 25px 30px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+.postUser {
+    margin-bottom: 22px;
+    display: flex;
+    gap: 9px;
+    & img {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+}
+.postUserBody {
+}
+.postUserName {
+    color: #000;
+    font-size: 18px;
+    line-height: 20px;
+    margin-bottom: 2px;
+}
+.posyUserSubcribes {
+    color: #787878;
+    font-size: 10px;
+    line-height: 20px;
+}
+.postTitle {
+    color: #000;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 22px;
+    margin-bottom: 24px;
+}
+.postText {
+    color: #787878;
+    font-size: 14px;
+    margin-bottom: 50px;
+    line-height: 20px;
+}
+.postBottom {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.postBottomBody {
+    display: flex;
+    gap: 30px;
+    & div {
+        color: #000;
+        font-size: 18px;
+        font-weight: 300;
+        line-height: 20px;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        cursor: pointer;
+    }
+}
+.postLikes {
+}
+.postComments {
+}
+.postDislike {
+}
+.postShare {
+    cursor: pointer;
+}
